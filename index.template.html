@@ -63,6 +63,29 @@
     transition:opacity 0.2s;
   }
   header .mark:hover{opacity:0.7;}
+  /* Logo wordmark: replaces the plain "JULIETTE KIM" text with Juliette's own "Juliette"
+     script logo (inlined as real SVG paths, not an <img>/mask — this asset is true vector,
+     so inlining it lets its fill track `currentColor` directly, same as text does, staying
+     perfectly crisp at any size with zero extra network request). No transition is declared
+     on the fill here — matches the passive "just inherit body's animating color every
+     frame" pattern already used for MENU/the old text mark and the mobile CONTACT link
+     below (giving an element its own transition while a value it inherits is *also*
+     transitioning is what caused the lagging-behind bug documented there).
+     height:35px — Juliette asked to size up past the header's natural 24px ceiling (tested:
+     header height stays flat through 24px, then grows 1:1 with anything taller) for a more
+     legible logo. She compared 24/30/35/40px live (an interactive slider build) and settled
+     on 35px as the best balance — legible without dwarfing the header's otherwise tiny nav
+     text (11px) and CONTACT chip. At 35px the header grows from 70px to ~81px on desktop
+     (mobile has far more headroom so it isn't affected the same way). Width is left to size
+     itself off the SVG's real 439.91:218.97 aspect ratio so nothing gets stretched. */
+  .logo-mark{display:inline-flex; align-items:center;}
+  .logo-mark svg{
+    display:block;
+    height:35px;
+    width:auto;
+    aspect-ratio:439.91/218.97;
+    fill:currentColor;
+  }
   header nav{
     position:absolute;
     left:50%;
@@ -222,6 +245,13 @@
   #project-bar .close-link{display:flex; align-items:center; gap:6px; opacity:0.75;}
   #project-bar .close-link:hover{opacity:1;}
   #project-bar .p-title{font-weight:600; letter-spacing:0.08em; text-transform:uppercase; font-size:11px;}
+  /* When a project carries all 3 tags (Branding/Packaging/Illustration), the full
+     "BRANDING · PACKAGING · ILLUSTRATION" string is too long for the 3-column bar on
+     narrow screens and wraps to 2 lines, breaking the Close/tags/CONTACT alignment. Below
+     640px we swap in a single "ALL" label instead (set alongside the full text in
+     showProject() — see .p-title-short/.p-title-full there); above 640px there's enough
+     room so the full tag list stays. */
+  #project-bar .p-title-short{display:none;}
   /* was the "No.N" project index — replaced with a CONTACT link (Juliette's request), kept
      in the same subtle text-link style as the "Close" link on the opposite side rather than
      the filled white pill-btn chip, to match this bar's plain minimal look. */
@@ -230,6 +260,10 @@
     opacity:0.75; transition:opacity 0.2s;
   }
   #project-bar .p-index:hover{opacity:1;}
+  @media (max-width:640px){
+    #project-bar .p-title-full{display:none;}
+    #project-bar .p-title-short{display:inline;}
+  }
 
   /* ---------- work / grid view ---------- */
   #work-view{
@@ -790,7 +824,7 @@
 <body>
 
 <header id="site-header">
-  <a href="#design" class="mark">JULIETTE KIM</a>
+  <a href="#design" class="mark logo-mark" aria-label="Juliette Kim"><svg viewBox="0 0 439.91 218.97" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><path d="M281.45,135.99c-7.5,8.34-28.72,10.51-37.38-.96-5.64,10.9-24.61,7.84-33.41,1.39-4.46-3.27-6.56-9-12.31-10.95-5.39,3.2-11.64,6.37-18.14,5.88-3.18-.24-6.29-2.76-8.77-4.23-8.4-4.98-11.17,5.48-15.08,9.66-8.16,8.7-20.69,7.95-28.65-.1-2.61-2.64-7.33.68-8.55,2.96-1.66,3.09-2.73,6.05-4.98,8.37l-7.83,8.07c-2.13,2.19-3.92,3.8-4.22,6.57-.33,3.03,1.92,4.51,3.43,7.04,4.05,6.81,6.85,14.53,8.85,22.21,1.37,5.29-2.2,9.69-4.08,13.87-3.08,6.88-8.15,10.16-14.95,12.23-8.17,2.48-14.64.12-20.39-6.11-3.31-3.59-4.07-6.61-5.34-11.41-1.76-6.69-3.42-12.68.44-19.47,2.89-5.09,6.48-10.92,11.93-13.88,2.54-1.38,4.54-3.47,2.7-6.35l-6.78-10.61c-10.55,6.07-21.75,6.63-33.27,5.99-7.18-.4-12.8-1.48-18.91-5.06-11.54-6.76-23.29-18.17-25.23-31.62-1.83-12.68,1.28-25.91,9.06-36.44,5.83-7.89,19.18-11.73,23.08-17.58,6.14-9.19-9.09-34.85,2.81-53.17,3.65-5.62,12.57-9.5,18.39-11.2,11.35-3.31,19.58,1.32,26.38,8.72,8.43,9.18,11.22,19.92,5.69,31.94-6.04,13.1-18.5,21.88-31.4,29.03.52,3.24,1.96,5.4,3.23,8.35.65,1.5.45,5.06,1.53,6,3.24,2.8,7.78.27,11.17.78,8.56,1.27,18.61,6.37,23.4,13.85,4.22,6.6,5.27,14.34,6.2,22.02,1.34,11.09-9.33,16.37-8.22,20.88.39,1.59,1.99,5.92,4.09,5.18,7.05-3.8,11.46-12.38,12.2-20.1.58-6.04,3.24-10.51,4.57-16.05,1.4-5.86,1.15-12.43,1.13-18.35-.04-11.48-9.96-20.31-.74-22.67,4.81-1.23,11.27-.41,14.06,4.11,1.95,3.16.25,7.6.33,11.02.23,9.53,2.02,17.77,3.78,27.11,1,5.35,4.19,12.91,10.15,14.17,7.77,1.64,12.67-6.72,13.18-13.28l1.74-22.37c1.26-16.25-10.32-20.07-1.7-23.96,5.95-3.57,13.48-.6,16.05,5.61-2.14,4.88-2.35,9.35-1.31,14.19l3.92,21.91c.98,5.46,4.97,8.47,10.49,8.88,3.86.29,6.76-1.28,8.49-3.87,2.36-3.55-.04-5.99-1.19-9.56-6.69-20.73-9.7-42.17-11.63-64-.57-6.44.2-13.01,1.21-19.2,1.81-11.03,10.19-18.43,21.33-19.69,12.69-1.43,24.08,9.06,23.62,21.91,2.88,5.26,3.9,10.32,4.57,16.18l-1.97,31.67c-.55,8.75-4.55,16.55-6.78,24.93-.96,3.63-1.08,7.14-3.08,10.5-1.62,2.72-5.15,5.87-4.94,9.03.27,4.14,2.38,8.13,4.72,9.77,3.29,2.31,7.9,3.74,11.21,1.9,6.06-3.39,7.57-17.44,6.27-19.12-1.55-2.02-2.74-3.48-1.81-6.01,2.07-5.66,12.52-7.04,17.84-2.47,3.56,3.06-1.45,9,1.73,21.93,1.31,5.33,5.05,8.69,10.8,8.59,3.25-.06,5.76-.3,7.41-3.06,1.06-1.77,3.28-5.18,1.18-7.47-6.61-7.17-9.09-15.13-11.04-24.49-2.2-10.59-1.57-22.19,6.86-29.95,7.11-6.54,16.78-2.93,22.39,4.1,6.24,7.83,7.99,17.1,8.74,27.25.61,8.3-3.1,15.39-7.68,22.39-.11,1.87,3.45,3.19,5,3.12,2.54-.11,3.55-1.24,5.26-3.48l5.62-7.39c5.26-10.75,10.73-27.3,8.4-38.29-.2-.92.44-2.69-.72-3.46-2.58-1.72-8.54,4.48-14-2.73-2.51-3.31-2.55-9.18,1.72-11.31,3.85-1.92,8.75-.08,13.31-.33-.59-4.62-2.36-10.45,1.64-14.02,3.52-3.14,11.76-1.64,14.85,1.64,2.74,2.92-2.98,8.78.98,17.44,8.69-.47,16.06,4.16,22.36,2.74l2.37-8.71c2.57-4.86,7.37-5.43,11.51-2.77,1.8,1.16,3.23,2.23,3.66,3.98.85,3.48-3.26,6.86-1.71,8.92,1.63,2.17,10.17.4,11.78,6.59,1.06,4.08.37,9.26-4.45,9.39l-9.17.26c-1.98,5.23-.1,11.3-.99,16.14-2.07,11.31-1.44,21.29,3.68,31.57,2.75,5.52,7.76,9.38,14.32,5.93.88-.46,2.28-.78,2.54-1.83.28-1.12.4-2.39-.49-3.66-7.95-11.39-8.65-27.14.13-38.11,5.16-6.45,13.23-8.76,21.21-7.06,4.7,1,8.63,4.94,10.33,9.49,5.13,13.72,3.8,20.98-4.64,33.8-1.25,1.9-5.15,3.4-4.21,6.54s9.1,5.09,10.17,1.56c1.18-3.88-.02-7.31,3.98-9.34,3-1.52,7.01-1.89,10.41.83,3.51,2.8,3.54,7.06,2.39,11.1s-4.26,5.43-8.21,7.58c-9.56,5.21-19.85,4.43-28.1-2.96-2.37-2.12-5.44,1.42-7.41,2.41-9.93,5.02-22.67,3.62-30.7-4.11l-7.93-13.18c-1.92.72-2.65,3.82-4.42,5.36-8.86,7.7-23.63,4.87-30.08-6.25-1.38-2.37-.62-5-4.33-6.88-1.41,5.67-5.37,8.52-9.69,11.4-11.82,7.89-19.17-1.65-24.26.69-1.12.51-1.45,2.73-2.68,4.1ZM213.5,69.77c2.18-6.14,1.34-11.17.34-17.31-1.26-7.79.8-17.38-2.03-23.84l-4.46-10.15c-.8-1.83-3.5-2.56-5.04-2.11-5.44,1.59-6.73,12-8.85,20.21,2.84,15.44,3.96,28.71,8.13,44.62,1.26,4.82,1.59,9.66,5.59,13.67,6.95-6.59,3.14-16.17,6.31-25.08ZM49.31,57.88c7.63-3.16,13.11-7.48,18.21-12.68,3.41-5.77,5.9-12.26,5.02-18.87-.93-7.02-5.76-12.06-12.86-12.08-2.57,0-4.33,2.75-6,3.61-6.42,3.3-8.98,8.23-7.77,14.98,1.46,8.15.11,16.72,3.4,25.03ZM346.5,118.6c4.41-6.99,5.53-13.58,5.4-21.05,3.55-6.95,4.92-14.41,3.59-22.11-12.49,1.47-19.88-5.97-24.11-3.68-1.75.95-1.18,7.78-.53,14.33,1.26,12.63-3.49,27.95,7.09,37.93,2.97,2.81,8.37-1.75,8.56-5.43ZM285.86,98.23l.81-16.3c.13-2.52-1.92-4.16-3.24-5.29-1.25-1.06-4.93-2.43-6.15-.04-5.99,11.71-3.41,19.75,3.86,31.37,3.17-2.47,4.52-5.79,4.72-9.75ZM407.26,113.33c3.51-3.88,3.87-7.02,2.15-11.48-.96-2.47-2.21-4.57-4.92-4.68-2.32-.09-3.77,1.24-5.16,3.49-3.86,6.28-2.49,19.47,4.07,21.77l3.85-9.1ZM57.03,106.76c-3.97,3.56-5.79,9.21-2.94,13.42,2.06,3.04,4.72,6.24,2.48,10.18-1.62,2.84-5.29,4.38-8.2,3.9-2.54-.41-6.71-1.23-7.31-4.39l-3.24-16.91c-3.78-19.75,15.29-19.35,9.22-28.07l-5-7.19-11.63,6.55c-5.5,4.13-9.28,10.66-10.38,17.75-.76,4.87-1.86,10.5-.95,15.65,2.53,14.29,15.45,25.87,30.09,26.41,7.53.27,14.41-3.21,21.41-4.37,1.51-.25,2.09-1.87,2.18-2.66.1-.83-.09-2.53-1.02-3.31-6.41-5.39-11.74-17.69-14.71-26.95ZM84.39,129.08c3.08-9.93,1.11-23.76-5.87-26.67-2.59-1.09-6.85-1.34-8.38,1.06,2.67,9.46,7.61,17.67,14.25,25.61ZM91.12,206.06c2.76-.34,6.49-3.45,7.27-5.77,2.99-8.85.96-18.45-6.1-25.41-5.34,3.82-10.14,9.63-11.43,15.96-.58,2.86,3.96,15.99,10.26,15.22Z"/><path d="M242.61,85.51c-3.98-.09-6.41-2.5-6.6-6.18-.16-3.26,2.57-5.96,6.32-6.1,4.13-.16,7.41,2.04,7.28,6.07-.11,3.41-2.96,6.3-7,6.21Z"/></svg></a>
   <nav>
     <a href="#about" data-nav="about" id="nav-about">About</a>
     <a href="#design" data-nav="design" id="nav-design">Design</a>
@@ -1553,7 +1587,13 @@
     projectBar.classList.add("active");
     projectView.classList.add("active");
     projectTitle.textContent = p.title;
-    barTitle.textContent = p.tags.join(" · ");
+    // Full tag list always renders; on screens <=640px CSS swaps it for the "ALL" span
+    // instead when every tag applies (3 tags = the max, since only Branding/Packaging/
+    // Illustration exist) — see the .p-title-short rule above. Fixes the top bar wrapping
+    // to 2 lines on mobile for projects tagged with all three.
+    barTitle.innerHTML =
+      '<span class="p-title-full">' + p.tags.join(" · ") + '</span>' +
+      '<span class="p-title-short">' + (p.tags.length >= 3 ? "ALL" : p.tags.join(" · ")) + '</span>';
     // bar-index used to show "No.N" per project — replaced with a static CONTACT link
     // (per Juliette's request, matching the site's now-everywhere CONTACT access pattern),
     // so there's nothing left to set here per project.
