@@ -1,0 +1,11 @@
+{
+  "id": "post-5",
+  "image": "images/blog/post-5.jpg",
+  "caption": "blog photo 5",
+  "title": "밤나무",
+  "date": "2024-07-20",
+  "text": "사진 설명은 곧 채워질 예정이에요.",
+  "color": "#adb873",
+  "textColor": "#2b2420",
+  "order": 5
+}

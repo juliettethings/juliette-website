@@ -1,0 +1,66 @@
+# Decap CMS configuration. Each entry under `collections` maps to one folder of JSON files
+# under content/ (see build.js — it reads these same files to regenerate index.html on every
+# deploy). Field names here must match the JSON keys exactly, since build.js reads them
+# directly with no renaming step.
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Netlify Large Media isn't set up (not needed at this scale) — images upload straight into
+# the repo under images/uploads/. Project gallery images added through the CMS land there;
+# the originals scraped from Behance stay under images/projects/<slug>/ as set by build.js.
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "content/projects"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: title
+    summary: "{{order}} — {{title}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Order (controls position in the Design/Illustration grid — lower = earlier)", name: "order", widget: "number", value_type: "int" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug (used in the URL, e.g. #project-slug — lowercase, hyphens only, no spaces)", name: "slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and hyphens only"] }
+      - { label: "Background color (hex)", name: "color", widget: "color", allowInput: true }
+      - { label: "Text color (hex)", name: "textColor", widget: "color", allowInput: true }
+      - label: "Tags"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options: ["Branding", "Illustration", "Packaging"]
+      - label: "Gallery images"
+        name: "images"
+        widget: "list"
+        summary: "{{fields.src}}"
+        field: { label: "Image", name: "src", widget: "image" }
+      - { label: "Description (not shown on the site yet — reserved for future use)", name: "description", widget: "text", required: false }
+
+  - name: "blog"
+    label: "Blog"
+    label_singular: "Blog post"
+    folder: "content/blog"
+    create: true
+    delete: true
+    slug: "{{fields.id}}"
+    identifier_field: title
+    summary: "{{order}} — {{title}} ({{date}})"
+    sortable_fields: ["order", "date"]
+    fields:
+      - { label: "Order (controls position — lower = earlier / more recent, matches the site's existing ordering)", name: "order", widget: "number", value_type: "int" }
+      - { label: "Post ID (used in the URL — lowercase, hyphens only, no spaces)", name: "id", widget: "string", pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and hyphens only"] }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Caption", name: "caption", widget: "string", required: false }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "string", required: false, hint: "Free text, matches the site's existing format (e.g. pulled from photo EXIF) — leave blank if unknown" }
+      - { label: "Text", name: "text", widget: "text", required: false }
+      - { label: "Background color (hex)", name: "color", widget: "color", allowInput: true }
+      - { label: "Text color (hex)", name: "textColor", widget: "color", allowInput: true }

@@ -1,0 +1,33 @@
+{
+  "order": 3,
+  "title": "Dercent",
+  "slug": "dercent",
+  "color": "#dce4e1",
+  "textColor": "#6cc4ea",
+  "tags": [
+    "Branding",
+    "Packaging"
+  ],
+  "images": [
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0203bd121296215.60d9c39001ac1.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/406c83121296215.60d9e458199e1.gif",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e3063b121296215.60d9e458192f8.gif",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/173f4c121296215.60d9c390004c6.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/fb7a70121296215.60d9e45879e61.gif",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/f16e00121296215.60d9c38d8e6ad.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/5d45f8121296215.60d9c38d8d674.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/22c6ba121296215.60d9c38e00108.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/d1a608121296215.60d9c38df377d.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/abbdd3121296215.60d9c3900154a.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/source/e200bc121296215.60d9c39002a7a.gif",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/46bb1e121296215.60d9c3900220c.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/390ee1121296215.60d9c38e7e000.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/de9548121296215.60d9c38e7e7a3.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/5859d9121296215.60d9c38f3c602.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/069197121296215.60d9da631ee48.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0bf5ac121296215.60d9c38ff3d20.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bf2fd2121296215.60d9da63bbc38.jpeg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a434ae121296215.60d9c38f9afb9.jpg"
+  ],
+  "description": ""
+}

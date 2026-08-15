@@ -1,0 +1,11 @@
+{
+  "id": "post-3",
+  "image": "images/blog/post-3.jpg",
+  "caption": "blog photo 3",
+  "title": "핑크 경차",
+  "date": "2025-04-19",
+  "text": "사진 설명은 곧 채워질 예정이에요.",
+  "color": "#99b84d",
+  "textColor": "#faf6f0",
+  "order": 3
+}

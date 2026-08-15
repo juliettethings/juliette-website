@@ -1,0 +1,9 @@
+{
+  "name": "juliette-kim-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Juliette Kim's portfolio site — static HTML/CSS/JS, content managed via Decap CMS, built with build.js and deployed on Netlify.",
+  "scripts": {
+    "build": "node build.js"
+  }
+}

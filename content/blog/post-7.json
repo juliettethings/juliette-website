@@ -1,0 +1,11 @@
+{
+  "id": "post-7",
+  "image": "images/blog/post-7.jpg",
+  "caption": "blog photo 7",
+  "title": "가방 패치",
+  "date": "2023-04-17",
+  "text": "사진 설명은 곧 채워질 예정이에요.",
+  "color": "#b87c75",
+  "textColor": "#faf6f0",
+  "order": 7
+}

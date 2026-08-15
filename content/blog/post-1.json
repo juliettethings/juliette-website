@@ -1,0 +1,11 @@
+{
+  "id": "post-1",
+  "image": "images/blog/post-1.jpg",
+  "caption": "blog photo 1",
+  "title": "책장 구경",
+  "date": "",
+  "text": "사진 설명은 곧 채워질 예정이에요.",
+  "color": "#b8564d",
+  "textColor": "#faf6f0",
+  "order": 1
+}

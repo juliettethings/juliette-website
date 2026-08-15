@@ -1,0 +1,28 @@
+{
+  "order": 10,
+  "title": "Dear Sweet Lab",
+  "slug": "dear-sweet-lab",
+  "color": "#fbc8cb",
+  "textColor": "#faf6f0",
+  "tags": [
+    "Branding",
+    "Packaging"
+  ],
+  "images": [
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/e14ace78950799.5cb477388416c.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0afd5478950799.5cb47883279a5.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a9d14778950799.5cb4788327d29.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3d844978950799.5cb477388685a.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4025ac78950799.5cb47738865e0.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b24778950799.5cb57ab6d245e.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/79dcf878950799.5cb4773885bc8.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b002b878950799.5cb57928a19e2.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a9f80e78950799.5cb4788327033.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b2cd3378950799.5cb477388628c.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d483fb78950799.5cb4773885868.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7a2cd178950799.5cb4773884b47.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f865ae78950799.5cb47883273b0.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5e3a178950799.5cb4773883b15.png"
+  ],
+  "description": ""
+}

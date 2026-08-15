@@ -1,0 +1,22 @@
+# Netlify build settings. Netlify runs `npm run build` (which just calls build.js — see
+# package.json) on every push to the connected branch and on every Decap CMS save (since a CMS
+# save is itself a git commit through git-gateway), then publishes this same directory as-is.
+#
+# build.js only uses Node's built-in fs/path/https modules — no npm install step is required,
+# but Netlify runs one anyway by default, which is harmless (nothing to install).
+
+[build]
+  command = "npm run build"
+  publish = "."
+
+# Netlify auto-detects the Contact form (admin panel form with data-netlify="true" — see
+# index.template.html) from the built index.html at deploy time. No forms config needed here;
+# see DEPLOY.md for the one manual step (enabling notifications so submissions reach Juliette's
+# inbox).
+
+[[redirects]]
+  # Keeps deep links / hash-based routes working the same way this single-page site already
+  # handles them client-side — anything not matching a real file falls back to index.html.
+  from = "/*"
+  to = "/index.html"
+  status = 200

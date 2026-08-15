@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+  Decap CMS admin panel. This is the standard boilerplate — all the actual configuration
+  (what content types exist, what fields each has, where images get stored) lives in
+  config.yml next to this file. Juliette reaches this at yoursite.netlify.app/admin/ once
+  the site is deployed and logs in with the account set up via Netlify Identity (see
+  DEPLOY.md for the one-time setup steps).
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager — Juliette Kim Portfolio</title>
+    <link rel="icon" href="data:," />
+    <!-- Netlify Identity widget: handles the login button + auth token that Decap CMS's
+         git-gateway backend uses to make edits on Juliette's behalf without her needing her
+         own GitHub account or a personal access token. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Redirects a stray Netlify Identity invite/confirmation link (which lands on the
+      // homepage by default) back into the admin panel so the login flow completes here.
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
