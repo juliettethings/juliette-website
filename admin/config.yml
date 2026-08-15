@@ -22,6 +22,8 @@ collections:
     folder: "content/projects"
     create: true
     delete: true
+    extension: "json"
+    format: "json"
     slug: "{{fields.slug}}"
     identifier_field: title
     summary: "{{order}} — {{title}}"
@@ -50,6 +52,8 @@ collections:
     folder: "content/blog"
     create: true
     delete: true
+    extension: "json"
+    format: "json"
     slug: "{{fields.id}}"
     identifier_field: title
     summary: "{{order}} — {{title}} ({{date}})"
