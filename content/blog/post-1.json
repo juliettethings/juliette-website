@@ -1,11 +1,11 @@
 {
-  "id": "post-1",
-  "image": "images/blog/post-1.jpg",
-  "caption": "blog photo 1",
-  "title": "책장 구경",
-  "date": "",
-  "text": "사진 설명은 곧 채워질 예정이에요.",
   "color": "#b8564d",
+  "caption": "blog photo 1",
+  "text": "내 방은 나의 작은 세계",
+  "order": 1,
+  "date": "",
   "textColor": "#faf6f0",
-  "order": 1
+  "title": "고슴도치와 책",
+  "id": "post-1",
+  "image": "images/blog/post-1.jpg"
 }
