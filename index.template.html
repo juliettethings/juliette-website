@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juliette Kim — Portfolio</title>
+<script>
+  // Netlify Identity invite/confirmation/recovery links point at the site's root domain by
+  // default (e.g. "juliettekim.netlify.app/#invite_token=..."), but only admin/index.html has
+  // the Identity widget loaded to actually process that token. Without this, clicking the
+  // emailed confirm link just lands here with nothing happening. Bounce straight to /admin/
+  // (keeping the token in the hash) whenever one of these tokens is present so the widget
+  // there can pick it up.
+  if (window.location.hash && /confirmation_token|invite_token|recovery_token|email_change_token/.test(window.location.hash)) {
+    window.location.href = "/admin/" + window.location.hash;
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
