@@ -927,6 +927,25 @@
   </div>
 </main>
 
+<!-- Netlify Forms detection workaround: the real #contact-form above is already static HTML
+     with all the required attributes, but some Netlify projects still fail to auto-detect a
+     form that only appears inside a single large bundled index.html. Netlify's own docs
+     recommend adding a plain, always-present duplicate of the form (same name + same field
+     names) purely so the build-time HTML parser has something unambiguous to register — real
+     submissions still come from the visible form above via the JS handler; this one is never
+     shown or submitted by a visitor. -->
+<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="checkbox" name="inquiry" value="디자인" />
+  <input type="checkbox" name="inquiry" value="일러스트레이션" />
+  <input type="checkbox" name="inquiry" value="협업" />
+  <input type="checkbox" name="inquiry" value="강의" />
+  <input type="checkbox" name="inquiry" value="그 외" />
+  <textarea name="message"></textarea>
+  <input type="text" name="bot-field" />
+</form>
+
 <main class="simple-view" id="editor-view" style="text-align:left;">
   <h1>Color Editor</h1>
   <p class="editor-sub">프로젝트별 배경색과 글자색을 정하세요. 다 고르시면 아래 "저장" 버튼으로 업데이트된 파일을 다운로드하고, 그 파일을 다시 채팅에 보내주시면 반영해드릴게요.</p>
