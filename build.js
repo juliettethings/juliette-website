@@ -163,7 +163,7 @@ function buildProjectsLiteral(projects) {
     return (
       `    { title: ${jsStringLiteral(p.title)}, slug: ${jsStringLiteral(p.slug)}, ` +
       `color: ${jsStringLiteral(p.color)}, textColor: ${jsStringLiteral(p.textColor)}, ` +
-      `tags: ${jsTagsArray(p.tags)},\n      images: ${imagesLiteral} }`
+      `description: ${jsStringLiteral(p.description)},\n      tags: ${jsTagsArray(p.tags)},\n      images: ${imagesLiteral} }`
     );
   });
   return "  const projects = [\n" + entries.join(",\n") + "\n  ];";

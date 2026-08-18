@@ -1,11 +1,11 @@
 {
-  "color": "#adb873",
-  "caption": "blog photo 5",
-  "text": "밤은 초록색 고슴도치\n정말 귀엽군.",
-  "order": 5,
-  "date": "2024-07-20",
-  "textColor": "#2b2420",
-  "title": "초록색 고슴도치",
   "id": "post-5",
-  "image": "images/blog/post-5.jpg"
+  "image": "images/blog/post-5.jpg",
+  "caption": "SPIKEY BUT CUTE",
+  "title": "밤나무",
+  "date": "2024-07-20",
+  "text": "뾰족뾰족하지만 귀여운 것들: 밤송이, 고슴도치, 성게",
+  "color": "#adb873",
+  "textColor": "#2b2420",
+  "order": 5
 }

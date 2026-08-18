@@ -1,0 +1,19 @@
+{
+  "order": 13,
+  "title": "Lola & Co",
+  "slug": "lola-co",
+  "color": "#f3ddd6",
+  "textColor": "#2b2420",
+  "tags": [
+    "Branding"
+  ],
+  "images": [
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/13d4fb59136157.5ab8ff0ec3bae.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b1082359136157.5ac1acf6f2c9b.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/af9ed859136157.5ac1acf6f28d6.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/3b1daf59136157.5ac1ab2bd6b95.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/d4e79459136157.5af17d9030e18.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/58750659136157.5ac1ab2bd74d8.gif"
+  ],
+  "description": ""
+}

@@ -869,41 +869,6 @@
           <p>Adobe Design Achievement Awards</p>
         </div>
       </div>
-      <div class="about-section">
-        <h2>강의경력</h2>
-        <div class="about-list">
-          <p>서울디자인고등학교</p>
-          <p>CLASS101</p>
-          <p>신용보증재단 삼청동</p>
-        </div>
-      </div>
-      <div class="about-section">
-        <h2>Featured in</h2>
-        <div class="about-list">
-          <p>We the Makers</p>
-          <p>Freelancermap</p>
-          <p>Girls Club Asia</p>
-          <p>CutOut Magazine</p>
-        </div>
-      </div>
-      <div class="about-section">
-        <h2>경력</h2>
-        <div class="about-list">
-          <p>LG생활건강 네이처컬렉션</p>
-          <p>88 Cups of Tea</p>
-          <p>CPR for Dogs</p>
-          <p>Dercent</p>
-          <p>Jaranada</p>
-          <p>HYAAH!</p>
-          <p>Kyochon Rangers</p>
-          <p>Tiny Organics</p>
-          <p>Dear Sweet Lab</p>
-          <p>Shore Soap Co.</p>
-          <p>With Bling London</p>
-          <p>Lola &amp; Co</p>
-          <p>Gutzel</p>
-        </div>
-      </div>
     </div>
   </div>
 </main>
@@ -1555,7 +1520,15 @@
     // (per Juliette's request, matching the site's now-everywhere CONTACT access pattern),
     // so there's nothing left to set here per project.
     barClose.href = "#" + (cat === "Illustration" ? "illustration" : "design");
-    projectDesc.textContent = "이 프로젝트는 " + p.tags.join(" · ") + " 작업이에요. 어떤 브랜드였는지와 작업 과정에 대한 설명은 곧 채워질 예정이에요. 지금은 자리만 잡아둔 설명이에요.";
+    // No placeholder text when a project has no description yet — an empty .project-desc
+    // still reserves its top margin, so it's hidden outright rather than left blank.
+    if(p.description && p.description.trim()){
+      projectDesc.textContent = p.description;
+      projectDesc.style.display = "";
+    } else {
+      projectDesc.textContent = "";
+      projectDesc.style.display = "none";
+    }
     projectImages.innerHTML = p.images.map(src => '<img src="' + src + '" alt="' + p.title + '" loading="lazy">').join("");
     setColorsInstant(p.color, p.textColor);
     window.scrollTo(0,0);

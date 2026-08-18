@@ -1,11 +1,11 @@
 {
-  "color": "#b8564d",
-  "caption": "blog photo 1",
-  "text": "내 방은 나의 작은 세계\n그리고 난 고슴도치를 정말 좋아한다",
-  "order": 1,
-  "date": "",
-  "textColor": "#faf6f0",
-  "title": "HEDGEHOG",
   "id": "post-1",
-  "image": "images/blog/post-1.jpg"
+  "image": "images/blog/post-1.jpg",
+  "caption": "MY BOOKSHELF",
+  "title": "책장 구경",
+  "date": "",
+  "text": "책장을 꾸미는 일은 재미있다!",
+  "color": "#b8564d",
+  "textColor": "#faf6f0",
+  "order": 1
 }

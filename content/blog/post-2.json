@@ -1,10 +1,10 @@
 {
   "id": "post-2",
   "image": "images/blog/post-2.jpg",
-  "caption": "blog photo 2",
+  "caption": "SMALL BLUE CAR",
   "title": "파란 비틀",
   "date": "2025-04-19",
-  "text": "사진 설명은 곧 채워질 예정이에요.",
+  "text": "언젠가 차를 타게된다면, 꼭 귀여운 차를 사야지!",
   "color": "#92b0b8",
   "textColor": "#faf6f0",
   "order": 2

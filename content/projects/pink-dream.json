@@ -1,0 +1,25 @@
+{
+  "order": 22,
+  "title": "Pink Dream",
+  "slug": "pink-dream",
+  "color": "#f7c6d3",
+  "textColor": "#6b2f42",
+  "tags": [
+    "Illustration"
+  ],
+  "images": [
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/092f3f36131559.571a9308a82c5.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b10b1236131559.571a9a0e98743.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/04d0f536131559.571a9a0e971b6.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/54bc6136131559.571a9a0e95500.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/2f5c0836131559.571a9a0e97d34.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/cf865636131559.571a9a0e95b78.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/1cfd9c36131559.571a9a0e976fd.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/17336936131559.571a9a0e9935e.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/0d48ef36131559.571a9a0e96228.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/14276336131559.571a9a0e9487d.jpg",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a9ef2336131559.571a9a0e997df.png",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/574dc236131559.571a9dc892801.png"
+  ],
+  "description": ""
+}
