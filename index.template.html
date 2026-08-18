@@ -682,6 +682,15 @@
   .lightbox-bar .lb-title{font-weight:600; letter-spacing:0.08em; text-transform:uppercase; font-size:11px;}
   .lightbox-bar .lb-date{opacity:0.55; font-variant-numeric:tabular-nums;}
   .lightbox-body{padding:32px 28px 44px; display:flex; flex-direction:column; align-items:center;}
+  .lightbox-caption{
+    width:100%; max-width:520px;
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-align:center;
+    margin-bottom:18px;
+  }
   .lightbox-img-wrap{width:100%; max-width:520px; margin:0 auto 26px;}
   .lightbox-img-wrap img{width:100%; height:auto; display:block;}
   .lightbox-img-wrap .lb-placeholder{font-size:13px; opacity:0.5; padding:40px; text-align:center;}
@@ -945,6 +954,7 @@
       <div class="lb-date" id="lightbox-date"></div>
     </div>
     <div class="lightbox-body">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
       <div class="lightbox-img-wrap" id="lightbox-img-wrap"></div>
       <div class="lightbox-text" id="lightbox-text"></div>
     </div>
@@ -1023,7 +1033,7 @@
     a.dataset.tags = p.tags.join(",");
     a.innerHTML =
       '<div class="thumb">' +
-        '<img src="' + p.images[0] + '" alt="' + p.title + '" loading="lazy">' +
+        '<img src="' + (p.cover || p.images[0]) + '" alt="' + p.title + '" loading="lazy">' +
         '<div class="title">' + p.title + '</div>' +
       '</div>';
     // hover preview: tint the whole page to this project's colors while hovering, revert on leave.
@@ -1296,6 +1306,7 @@
   const lightboxTitle = document.getElementById("lightbox-title");
   const lightboxDate = document.getElementById("lightbox-date");
   const lightboxImgWrap = document.getElementById("lightbox-img-wrap");
+  const lightboxCaption = document.getElementById("lightbox-caption");
   const lightboxText = document.getElementById("lightbox-text");
 
   // tracks which post is currently open so prev/next (click, arrow keys, or a mobile
@@ -1309,7 +1320,22 @@
     lightboxImgWrap.innerHTML = entry.image
       ? '<img src="' + entry.image + '" alt="' + escapeHtml(entry.caption) + '">'
       : '<div class="lb-placeholder">' + escapeHtml(entry.caption) + '</div>';
-    lightboxText.textContent = entry.text || entry.caption || "";
+    // caption (e.g. "RAINBOW ICE-CREAM") now renders as its own bold headline above the
+    // image instead of being invisible alt-text-only, per Juliette's request.
+    if(entry.caption && entry.caption.trim()){
+      lightboxCaption.textContent = entry.caption;
+      lightboxCaption.style.display = "";
+    } else {
+      lightboxCaption.textContent = "";
+      lightboxCaption.style.display = "none";
+    }
+    if(entry.text && entry.text.trim()){
+      lightboxText.textContent = entry.text;
+      lightboxText.style.display = "";
+    } else {
+      lightboxText.textContent = "";
+      lightboxText.style.display = "none";
+    }
     lightboxInner.scrollTop = 0;
     blogLightbox.classList.add("active");
     // page background now tints to match the opened post too (not just the lightbox card
@@ -1574,7 +1600,7 @@
     box.style.background = p.color;
     title.style.color = p.textColor;
     title.textContent = p.title;
-    img.src = (p.images && p.images[0]) || "";
+    img.src = p.cover || (p.images && p.images[0]) || "";
     document.querySelectorAll(".editor-row").forEach(r => {
       r.classList.toggle("active-row", r.dataset.slug === slug);
     });

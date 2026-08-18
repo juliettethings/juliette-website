@@ -118,6 +118,26 @@ async function downloadProjectImages(projects) {
       }
       jobs.push({ project, i, src, localPath, relPath });
     });
+
+    // grid/thumbnail cover — this is the image Behance shows on the profile grid tile,
+    // which is often a different crop/photo than the first project-content image, so it's
+    // tracked and self-hosted separately from the images[] gallery array.
+    if (project.cover) {
+      if (!/^https?:\/\//.test(project.cover)) {
+        project._localCover = project.cover;
+      } else {
+        const ext = extFromUrl(project.cover);
+        const filename = "cover." + ext;
+        const localPath = path.join(dir, filename);
+        const relPath = "images/projects/" + project.slug + "/" + filename;
+        if (fs.existsSync(localPath) && fs.statSync(localPath).size > 0) {
+          cached++;
+          project._localCover = relPath;
+        } else {
+          jobs.push({ project, i: "cover", src: project.cover, localPath, relPath });
+        }
+      }
+    }
   }
 
   const CONCURRENCY = 12;
@@ -129,18 +149,26 @@ async function downloadProjectImages(projects) {
         const buf = await download(job.src);
         fs.writeFileSync(job.localPath, buf);
         downloaded++;
-        job.project._localImages[job.i] = job.relPath;
+        if (job.i === "cover") {
+          job.project._localCover = job.relPath;
+        } else {
+          job.project._localImages[job.i] = job.relPath;
+        }
       } catch (err) {
         failed++;
         console.warn(
           "  [image download failed, keeping remote URL] " +
             job.project.slug +
             " #" +
-            (job.i + 1) +
+            (job.i === "cover" ? "cover" : job.i + 1) +
             ": " +
             err.message
         );
-        job.project._localImages[job.i] = job.src; // graceful fallback — site still works either way
+        if (job.i === "cover") {
+          job.project._localCover = job.src; // graceful fallback — site still works either way
+        } else {
+          job.project._localImages[job.i] = job.src;
+        }
       }
     }
   }
@@ -149,6 +177,10 @@ async function downloadProjectImages(projects) {
   for (const project of projects) {
     project.images = project._localImages;
     delete project._localImages;
+    if (project._localCover !== undefined) {
+      project.cover = project._localCover;
+      delete project._localCover;
+    }
   }
 
   console.log(
@@ -163,7 +195,7 @@ function buildProjectsLiteral(projects) {
     return (
       `    { title: ${jsStringLiteral(p.title)}, slug: ${jsStringLiteral(p.slug)}, ` +
       `color: ${jsStringLiteral(p.color)}, textColor: ${jsStringLiteral(p.textColor)}, ` +
-      `description: ${jsStringLiteral(p.description)},\n      tags: ${jsTagsArray(p.tags)},\n      images: ${imagesLiteral} }`
+      `description: ${jsStringLiteral(p.description)}, cover: ${jsStringLiteral(p.cover)},\n      tags: ${jsTagsArray(p.tags)},\n      images: ${imagesLiteral} }`
     );
   });
   return "  const projects = [\n" + entries.join(",\n") + "\n  ];";
