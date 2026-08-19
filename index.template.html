@@ -682,15 +682,6 @@
   .lightbox-bar .lb-title{font-weight:600; letter-spacing:0.08em; text-transform:uppercase; font-size:11px;}
   .lightbox-bar .lb-date{opacity:0.55; font-variant-numeric:tabular-nums;}
   .lightbox-body{padding:32px 28px 44px; display:flex; flex-direction:column; align-items:center;}
-  .lightbox-caption{
-    width:100%; max-width:520px;
-    font-weight:700;
-    font-size:20px;
-    letter-spacing:0.03em;
-    text-transform:uppercase;
-    text-align:center;
-    margin-bottom:18px;
-  }
   .lightbox-img-wrap{width:100%; max-width:520px; margin:0 auto 26px;}
   .lightbox-img-wrap img{width:100%; height:auto; display:block;}
   .lightbox-img-wrap .lb-placeholder{font-size:13px; opacity:0.5; padding:40px; text-align:center;}
@@ -954,7 +945,6 @@
       <div class="lb-date" id="lightbox-date"></div>
     </div>
     <div class="lightbox-body">
-      <div class="lightbox-caption" id="lightbox-caption"></div>
       <div class="lightbox-img-wrap" id="lightbox-img-wrap"></div>
       <div class="lightbox-text" id="lightbox-text"></div>
     </div>
@@ -1306,7 +1296,6 @@
   const lightboxTitle = document.getElementById("lightbox-title");
   const lightboxDate = document.getElementById("lightbox-date");
   const lightboxImgWrap = document.getElementById("lightbox-img-wrap");
-  const lightboxCaption = document.getElementById("lightbox-caption");
   const lightboxText = document.getElementById("lightbox-text");
 
   // tracks which post is currently open so prev/next (click, arrow keys, or a mobile
@@ -1315,20 +1304,14 @@
   function openBlogLightbox(entry){
     lightboxInner.style.background = entry.color;
     lightboxInner.style.color = entry.textColor;
-    lightboxTitle.textContent = entry.title || "BLOG";
+    // caption (e.g. "RAINBOW ICE-CREAM") is the post's real display title — it goes in the
+    // Close/Title/Date bar where the title used to sit, replacing the Korean title field
+    // there entirely (not shown as a second heading underneath), per Juliette's request.
+    lightboxTitle.textContent = (entry.caption && entry.caption.trim()) || entry.title || "BLOG";
     lightboxDate.textContent = formatBlogDate(entry.date);
     lightboxImgWrap.innerHTML = entry.image
       ? '<img src="' + entry.image + '" alt="' + escapeHtml(entry.caption) + '">'
       : '<div class="lb-placeholder">' + escapeHtml(entry.caption) + '</div>';
-    // caption (e.g. "RAINBOW ICE-CREAM") now renders as its own bold headline above the
-    // image instead of being invisible alt-text-only, per Juliette's request.
-    if(entry.caption && entry.caption.trim()){
-      lightboxCaption.textContent = entry.caption;
-      lightboxCaption.style.display = "";
-    } else {
-      lightboxCaption.textContent = "";
-      lightboxCaption.style.display = "none";
-    }
     if(entry.text && entry.text.trim()){
       lightboxText.textContent = entry.text;
       lightboxText.style.display = "";
