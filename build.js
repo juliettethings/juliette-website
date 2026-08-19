@@ -51,12 +51,23 @@ function jsTagsArray(tags) {
 const DOWNLOAD_TIMEOUT_MS = process.env.BUILD_IMAGE_TIMEOUT_MS
   ? parseInt(process.env.BUILD_IMAGE_TIMEOUT_MS, 10)
   : 8000;
+// Behance's CDN (mir-s3-cdn-cf.behance.net) hotlink-protects some assets and appears to reject
+// requests that look non-browser — a custom/bot-style User-Agent with no Referer/Accept headers
+// can get an HTTP 403 for a URL that's perfectly valid, even though most requests in the same
+// batch succeed. Sending headers that mirror a real browser tab that navigated from a Behance
+// project page avoids tripping that check.
+const BROWSER_LIKE_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+  Referer: "https://www.behance.net/",
+};
 function download(url, timeoutMs = DOWNLOAD_TIMEOUT_MS) {
   return new Promise((resolve, reject) => {
     const req = https
       .get(
         url,
-        { headers: { "User-Agent": "Mozilla/5.0 (compatible; JulietteSiteBuild/1.0)" }, timeout: timeoutMs },
+        { headers: BROWSER_LIKE_HEADERS, timeout: timeoutMs },
         (res) => {
           if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             download(res.headers.location, timeoutMs).then(resolve, reject);
@@ -141,12 +152,32 @@ async function downloadProjectImages(projects) {
   }
 
   const CONCURRENCY = 12;
+  const DOWNLOAD_RETRIES = 3;
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  // Behance's CDN occasionally drops/rate-limits a handful of requests out of a big parallel
+  // batch (transient — not a broken URL). Retrying a few times with a short backoff clears up
+  // most of these so a project doesn't end up stuck on an unhosted, hotlink-blocked remote URL
+  // just because its request lost the race once.
+  async function downloadWithRetries(src) {
+    let lastErr;
+    for (let attempt = 1; attempt <= DOWNLOAD_RETRIES; attempt++) {
+      try {
+        return await download(src);
+      } catch (err) {
+        lastErr = err;
+        if (attempt < DOWNLOAD_RETRIES) await sleep(500 * attempt);
+      }
+    }
+    throw lastErr;
+  }
   let cursor = 0;
   async function worker() {
     while (cursor < jobs.length) {
       const job = jobs[cursor++];
       try {
-        const buf = await download(job.src);
+        const buf = await downloadWithRetries(job.src);
         fs.writeFileSync(job.localPath, buf);
         downloaded++;
         if (job.i === "cover") {
