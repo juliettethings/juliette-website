@@ -233,7 +233,8 @@ function buildProjectsLiteral(projects) {
 }
 
 function buildBlogLiteral(posts) {
-  const sorted = [...posts].sort((a, b) => (a.order || 0) - (b.order || 0));
+  const parseDate = (d) => d ? new Date(d.replace(/\./g, '-')) : new Date(0);
+  const sorted = [...posts].sort((a, b) => parseDate(b.date) - parseDate(a.date));
   const entries = sorted.map((e) => {
     return (
       `    { id: ${jsStringLiteral(e.id)}, image: ${jsStringLiteral(e.image)}, ` +
