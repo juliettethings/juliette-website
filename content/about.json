@@ -2,13 +2,21 @@
   "name": "김줄리엣 (Juliette Kim)",
   "roles": [
     "줄리엣띵스 대표",
-    "수무서울 브랜드디렉터",
     "디자이너 & 일러스트레이터"
   ],
   "links": [
-    { "label": "Behance", "url": "https://www.behance.net/juliettekim" },
-    { "label": "Instagram", "url": "https://www.instagram.com/juliettethings/" },
-    { "label": "juliettething@gmail.com", "url": "#contact" }
+    {
+      "label": "Behance",
+      "url": "https://www.behance.net/juliettekim"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/juliettethings/"
+    },
+    {
+      "label": "juliettething@gmail.com",
+      "url": "#contact"
+    }
   ],
   "education": [
     "Rhode Island School of Design",
