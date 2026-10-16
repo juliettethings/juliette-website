@@ -20,6 +20,7 @@ const https = require("https");
 const ROOT = __dirname;
 const CONTENT_PROJECTS_DIR = path.join(ROOT, "content", "projects");
 const CONTENT_BLOG_DIR = path.join(ROOT, "content", "blog");
+const CONTENT_ABOUT_PATH = path.join(ROOT, "content", "about.json");
 const IMAGES_PROJECTS_DIR = path.join(ROOT, "images", "projects");
 const TEMPLATE_PATH = path.join(ROOT, "index.template.html");
 const OUTPUT_PATH = path.join(ROOT, "index.html");
@@ -257,10 +258,48 @@ function replaceBetweenMarkers(html, startMarker, endMarker, replacement) {
   return before + replacement + after;
 }
 
+function buildAboutHtml(about) {
+  const esc = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let html = "";
+
+  html += `      <div class="about-section about-intro">\n        <h2>소개</h2>\n`;
+  html += `        <p class="about-name">${esc(about.name)}</p>\n`;
+  (about.roles || []).forEach(r => { html += `        <p class="about-role">${esc(r)}</p>\n`; });
+  html += `      </div>\n`;
+
+  if (about.links && about.links.length) {
+    html += `      <div class="about-section">\n        <h2>Links</h2>\n        <div class="about-links">\n`;
+    about.links.forEach(l => {
+      const isExternal = l.url && l.url.startsWith("http");
+      const extra = isExternal ? ` target="_blank" rel="noopener noreferrer"` : "";
+      html += `          <a href="${esc(l.url)}"${extra}>${esc(l.label)}${isExternal ? " ↗" : ""}</a>\n`;
+    });
+    html += `        </div>\n      </div>\n`;
+  }
+
+  const sections = [
+    { key: "education", label: "학력" },
+    { key: "awards", label: "수상경력" },
+    { key: "teaching", label: "강의경력" },
+    { key: "featured", label: "Featured in" },
+    { key: "experience", label: "경력" },
+  ];
+  sections.forEach(({ key, label }) => {
+    if (about[key] && about[key].length) {
+      html += `      <div class="about-section">\n        <h2>${label}</h2>\n        <div class="about-list">\n`;
+      about[key].forEach(item => { html += `          <p>${esc(item)}</p>\n`; });
+      html += `        </div>\n      </div>\n`;
+    }
+  });
+
+  return html.trimEnd();
+}
+
 async function main() {
   console.log("Reading content files...");
   const projects = readJsonDir(CONTENT_PROJECTS_DIR);
   const blogPosts = readJsonDir(CONTENT_BLOG_DIR);
+  const about = JSON.parse(fs.readFileSync(CONTENT_ABOUT_PATH, "utf8"));
   console.log(`  ${projects.length} projects, ${blogPosts.length} blog posts`);
 
   console.log("Self-hosting project images (downloads any remaining Behance URLs)...");
@@ -276,6 +315,7 @@ async function main() {
     buildProjectsLiteral(projects)
   );
   html = replaceBetweenMarkers(html, "// BUILD:BLOG:START", "// BUILD:BLOG:END", buildBlogLiteral(blogPosts));
+  html = replaceBetweenMarkers(html, "<!-- BUILD:ABOUT:START -->", "<!-- BUILD:ABOUT:END -->", buildAboutHtml(about));
 
   fs.writeFileSync(OUTPUT_PATH, html);
   console.log("Wrote " + OUTPUT_PATH);

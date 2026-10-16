@@ -67,3 +67,42 @@ collections:
       - { label: "Text", name: "text", widget: "text", required: false }
       - { label: "Background color (hex)", name: "color", widget: "color", allowInput: true }
       - { label: "Text color (hex)", name: "textColor", widget: "color", allowInput: true }
+
+  - name: "about"
+    label: "About"
+    files:
+      - name: "about"
+        label: "About Page"
+        file: "content/about.json"
+        fields:
+          - { label: "이름", name: "name", widget: "string" }
+          - label: "소개 (역할)"
+            name: "roles"
+            widget: "list"
+            field: { label: "역할", name: "role", widget: "string" }
+          - label: "Links"
+            name: "links"
+            widget: "list"
+            fields:
+              - { label: "텍스트", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+          - label: "학력"
+            name: "education"
+            widget: "list"
+            field: { label: "항목", name: "item", widget: "string" }
+          - label: "수상경력"
+            name: "awards"
+            widget: "list"
+            field: { label: "항목", name: "item", widget: "string" }
+          - label: "강의경력"
+            name: "teaching"
+            widget: "list"
+            field: { label: "항목", name: "item", widget: "string" }
+          - label: "Featured in"
+            name: "featured"
+            widget: "list"
+            field: { label: "항목", name: "item", widget: "string" }
+          - label: "경력"
+            name: "experience"
+            widget: "list"
+            field: { label: "항목", name: "item", widget: "string" }
