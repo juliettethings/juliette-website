@@ -1,6 +1,6 @@
 {
   "id": "post-1",
-  "image": "images/blog/post-1.jpg",
+  "image": "/images/blog/post-1.jpg",
   "title": "MY BOOKSHELF",
   "date": "",
   "text": "책장을 꾸미는 일은 재미있다!",
