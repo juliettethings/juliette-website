@@ -7,6 +7,8 @@ backend:
   name: git-gateway
   branch: main
 
+publish_mode: editorial_workflow
+
 # Netlify Large Media isn't set up (not needed at this scale) — images upload straight into
 # the repo under images/uploads/. Project gallery images added through the CMS land there;
 # the originals scraped from Behance stay under images/projects/<slug>/ as set by build.js.
