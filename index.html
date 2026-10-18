@@ -2189,8 +2189,7 @@
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = '#ffffff';
-    ctx.shadowBlur = r * 3;
+    ctx.shadowBlur = 0;
     ctx.translate(x, y);
     ctx.beginPath();
     var spikes = 4, outerR = r, innerR = r * 0.4;
