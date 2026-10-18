@@ -20,8 +20,6 @@
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      // Redirects a stray Netlify Identity invite/confirmation link (which lands on the
-      // homepage by default) back into the admin panel so the login flow completes here.
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", (user) => {
           if (!user) {
@@ -31,6 +29,39 @@
           }
         });
       }
+    </script>
+    <script>
+      var BlogPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var image = entry.getIn(['data', 'image']);
+          var title = entry.getIn(['data', 'title']) || '';
+          var text = entry.getIn(['data', 'text']) || '';
+          var date = entry.getIn(['data', 'date']) || '';
+          var bg = entry.getIn(['data', 'color']) || '#ffffff';
+          var textColor = entry.getIn(['data', 'textColor']) || '#000000';
+          var imgUrl = image ? this.props.getAsset(image).toString() : '';
+
+          return h('div', {style: {fontFamily: 'sans-serif', maxWidth: '360px', margin: '24px auto'}},
+            h('div', {style: {
+              background: bg,
+              color: textColor,
+              borderRadius: '4px',
+              overflow: 'hidden',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.10)'
+            }},
+              imgUrl ? h('img', {src: imgUrl, style: {width: '100%', display: 'block', aspectRatio: '4/3', objectFit: 'cover'}}) : null,
+              h('div', {style: {padding: '20px 24px'}},
+                h('div', {style: {fontSize: '11px', opacity: 0.6, marginBottom: '6px'}}, date),
+                h('div', {style: {fontSize: '20px', fontWeight: '700', letterSpacing: '0.02em', marginBottom: '10px'}}, title),
+                h('div', {style: {fontSize: '13px', lineHeight: '1.7', opacity: 0.85, whiteSpace: 'pre-wrap'}}, text)
+              )
+            )
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('blog', BlogPreview);
+      CMS.registerPreviewStyle('data:text/css,body{background:#f5f5f5}');
     </script>
   </body>
 </html>
